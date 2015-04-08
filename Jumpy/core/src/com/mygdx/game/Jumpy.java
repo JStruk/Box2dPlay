@@ -61,8 +61,8 @@ public class Jumpy extends ApplicationAdapter implements GestureDetector.Gesture
       //  Body body = new Body();
       //  Body body = world.createBody(bodyDef);
       //  Fixture fixture = body.createFixture(fixtureDef);
-       // Box2DSprite box2DSprite = new Box2DSprite(someSpriteOrTextureYouHave);
-      //  body.setUserData(box2DSprite); // will draw on whole body
+    // Box2DSprite box2DSprite = new Box2DSprite(someSpriteOrTextureYouHave);
+     //  body.setUserData(box2DSprite); // will draw on whole body
        // fixture.setUserData(box2DSprite); // will only draw on the Fixture
 
         gestureDetector = new GestureDetector(this);
@@ -74,7 +74,7 @@ public class Jumpy extends ApplicationAdapter implements GestureDetector.Gesture
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-     //   debugRenderer.render(world, camera.combined);
+     //  debugRenderer.render(world, camera.combined);
        /* batch.begin();
         batch.draw(circle);
         batch.draw(sDude, 200, nY, 50, 50);

@@ -23,6 +23,8 @@ public class Box2dPlay extends ApplicationAdapter implements GestureDetector.Ges
     OrthographicCamera camera;
     GestureDetector gestureDetector;
     boolean bUp = false;
+    int nDudeY, nY, nOld;
+    float fDudeY, fOld, fNew;
 
     float fTorque = 0.0f;
     boolean drawSprite = true;
@@ -64,6 +66,7 @@ public class Box2dPlay extends ApplicationAdapter implements GestureDetector.Ges
         debugRenderer = new Box2DDebugRenderer();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.
                 getHeight());
+        body.setLinearVelocity(0f, -1f);
     }
 
     private float elapsed = 0;
@@ -93,11 +96,23 @@ public class Box2dPlay extends ApplicationAdapter implements GestureDetector.Ges
         // Scale down the sprite batches projection matrix to box2D size
         debugMatrix = batch.getProjectionMatrix().cpy().scale(PIXELS_TO_METERS, PIXELS_TO_METERS, 0);
         body.setGravityScale(100.0f);
-        body.setLinearVelocity(0f, -1f);
+
         if (bUp) {
-            // body.applyForceToCenter(0f,10f,true);
-            body.setLinearVelocity(0f, 3f);
+            System.out.println("tap");
+            Vector2 impulse = new Vector2(0.0f, 2.0f);
+
+         //   this.body.applyForce(new Vector2(0, -500));
+           //         this.body.getPosition();
+            //body.applyLinearImpulse(impulse, body.getWorldCenter(), true);
+            //  while(fOld<fNew){
+            //   body.setLinearVelocity(0f, 5f);
+            fOld++;
+            // bUp=true;
         }
+        bUp = false;
+        // }else if(!bUp){
+        // body.setLinearVelocity(0f, -1f);
+        //}
         // body.applyTorque();
         batch.begin();
 
@@ -111,7 +126,12 @@ public class Box2dPlay extends ApplicationAdapter implements GestureDetector.Ges
         // for debugging purposes
         debugRenderer.render(world, debugMatrix);
     }
-
+public void jump(){
+    Vector2 vCurHeight;
+    vCurHeight=body.getWorldPoint();
+    body.setLinearVelocity(body.getLinearVelocity().x, 0);
+    body.applyForceToCenter(0, 10.0f * 10.0f, true);
+}
     @Override
     public void dispose() {
         img.dispose();
@@ -182,7 +202,14 @@ public class Box2dPlay extends ApplicationAdapter implements GestureDetector.Ges
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        bUp = true;
+        if (!bUp) {
+            bUp = true;
+        } else if (bUp) {
+            fOld = body.getPosition().y;
+            fNew = fOld + 1000;
+            bUp = false;
+        }
+
         return false;
     }
 
